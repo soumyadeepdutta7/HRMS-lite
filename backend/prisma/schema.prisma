@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -18,10 +18,15 @@ model Employee {
 }
 
 model Attendance {
-  id         String   @id @default(uuid())
+  id         String           @id @default(uuid())
   date       DateTime
-  status     String   // "PRESENT" or "ABSENT"
-  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  status     AttendanceStatus
+  employee   Employee         @relation(fields: [employeeId], references: [id], onDelete: Cascade)
   employeeId String
-  createdAt  DateTime @default(now())
+  createdAt  DateTime         @default(now())
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
 }
