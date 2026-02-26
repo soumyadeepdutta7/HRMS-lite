@@ -17,6 +17,26 @@ attendanceRouter.post("/", async (req, res, next) => {
     const parsed = attendanceSchema.parse(req.body);
 
     const date = new Date(parsed.date);
+    const startOfDay = new Date(date);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(date);
+    endOfDay.setHours(23, 59, 59, 999);
+
+    const existing = await prisma.attendance.findFirst({
+      where: {
+        employeeId: parsed.employeeId,
+        date: {
+          gte: startOfDay,
+          lte: endOfDay,
+        },
+      },
+    });
+
+    if (existing) {
+      return res.status(409).json({
+        message: "Attendance already marked for this employee on this date",
+      });
+    }
 
     const attendance = await prisma.attendance.create({
       data: {

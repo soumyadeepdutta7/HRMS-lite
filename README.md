@@ -63,19 +63,16 @@ HRMS-lite/
 ### Prerequisites
 
 - Node.js 18+
-- PostgreSQL instance (local or hosted)
 
 ### 1. Configure Environment
 
 In `backend/`, create `.env`:
 
 ```env
-DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DB_NAME?schema=public"
+DATABASE_URL="file:./dev.db"
 CORS_ORIGIN="*"
 PORT=4000
 ```
-
-Update `CORS_ORIGIN` with your frontend origin (e.g. `http://localhost:5173` or your Vercel URL) for production.
 
 ### 2. Install Dependencies
 
@@ -91,12 +88,13 @@ npx prisma migrate dev --name init
 npx prisma generate
 ```
 
-This creates the tables for `Employee` and `Attendance`.
+This creates the tables in `dev.db`.
 
-### 4. Run Backend
+### 4. Build & Run Backend
 
 ```bash
-npm run dev
+npm run build
+npm start
 ```
 
 API will be available at `http://localhost:4000/api`.

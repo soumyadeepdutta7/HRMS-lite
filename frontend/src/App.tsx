@@ -6,9 +6,9 @@ export const App = () => {
   return (
     <div className="app-root">
       <header className="app-header">
-        <div>
+        <div className="header-container">
           <h1>HRMS Lite</h1>
-          <p className="subtitle">Lightweight HR tool for employee and attendance management</p>
+          <p className="subtitle">Enterprise-Ready Human Resource Management</p>
         </div>
       </header>
       <main className="app-main">
@@ -19,7 +19,7 @@ export const App = () => {
         </div>
       </main>
       <footer className="app-footer">
-        <span>HRMS Lite &middot; Demo-ready, production-focused</span>
+        <p>© 2026 HRMS Lite &middot; Built for Excellence</p>
       </footer>
     </div>
   );
